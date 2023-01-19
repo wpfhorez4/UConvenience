@@ -3,22 +3,31 @@ package com.git.uconvenience
 import android.util.Log
 import java.util.*
 
-class USync {
-    private val USYNC_TAG = "geunyeol"
+class USync(tag: String = "geunyeol") {
+    private val USYNC_TAG: String
 
     private val lock = Object()
     private var loop = true
     private var startLockTime: Long = 0
     private var currentLockTime: Long = 0
 
-    fun nowLock(waitMillis: Long, timeoutMillis: Long) {
+    init {
+        USYNC_TAG = tag
+    }
+
+    interface USyncInterface {
+        fun syncFail()
+    }
+
+    fun nowLock(waitMillis: Long = 3, timeoutMillis: Long = 3000, tag: String = USYNC_TAG, syncFail: USyncInterface? = null) {
         synchronized(lock) {
             startLockTime = Date().time
             currentLockTime = startLockTime
-            loggerD("SynchronizedModel lock start")
+            Log.v(tag, "Synchronized lock start")
             while(loop) {
                 if(currentLockTime - startLockTime > timeoutMillis) {
-                    Log.e(USYNC_TAG, "SynchronizedModel lock timeout")
+                    Log.e(USYNC_TAG, "Synchronized lock timeout")
+                    syncFail?.syncFail()
                     break
                 } else {
                     currentLockTime = Date().time
@@ -26,27 +35,25 @@ class USync {
                 lock.wait(waitMillis)
             }
             loop = true
-            loggerD("SynchronizedModel lock end")
+            Log.d(tag, "Synchronized lock end")
         }
     }
 
-    fun nowNotifyAll() {
+    fun nowNotifyAll(tag: String = USYNC_TAG) {
         synchronized(lock) {
-            loggerD("SynchronizedModel notifyAll start")
+            Log.v(tag, "Synchronized notifyAll start")
             loop = false
             lock.notifyAll()
-            loggerD("SynchronizedModel notifyAll end")
+            Log.d(tag, "Synchronized notifyAll end")
         }
     }
 
-    fun nowNotify() {
+    fun nowNotify(tag: String = USYNC_TAG) {
         synchronized(lock) {
-            loggerD("SynchronizedModel notify start")
+            Log.v(tag, "Synchronized notify start")
             loop = false
             lock.notify()
-            loggerD("SynchronizedModel notify end")
+            Log.d(tag, "Synchronized notify end")
         }
     }
-
-    private fun loggerD(msg: String) { Log.d(USYNC_TAG, msg) }
 }
