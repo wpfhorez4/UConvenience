@@ -5,7 +5,7 @@
 서비스 : 편의성을 위한 라이브러리</br>
 </br></br>
 ### 참고 사항</br>
-1. synchronized 서비스 제공
+1. USync class : synchronized 간소화
 </br></br>
 ### 패치 내용</br>
 | 버전 | 내용 | 사용 여부 |
