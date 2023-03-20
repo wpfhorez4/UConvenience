@@ -18,6 +18,8 @@ dependencies {
     implementation 'com.github.wpfhorez4:UConvenience:2.0'
 }
 ```
+
+</br></br>
 ### 참고 사항</br>
 | 클래스 | 내용 | 최초 버전 | 최신 버전 |
 | --- | --- | --- | ---- |
