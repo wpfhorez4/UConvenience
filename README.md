@@ -11,7 +11,8 @@
 
 </br></br>
 ### 패치 내용</br>
-| 버전 | 내용 | 사용 여부 |
-| --- | --- | --- |
-| 1.0 | USync class 추가 | 불허 |
-| 1.01 | USync class wait time out interface 추가 | 허용 |
+| 버전 | 내용                                        | 사용 여부        |
+| --- |-------------------------------------------|--------------|
+| 1.0 | USync class 추가                            | 불허           |
+| 1.01 | USync class wait time out interface 추가    | 허용           |
+| 2.0 | UText class 추가 companion object method 작성 | 불허(릴리즈 적용 중) | 
